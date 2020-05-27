@@ -48,18 +48,18 @@ int main(int argc, char **argv)
 	{
 		int x;
 		while(true){
-        system("cls");
+                system("cls");
 		printf("******************************************\n");
-        printf("**    CHUONG TRINH QUAN LY SINH VIEN    **\n");
+                printf("**    CHUONG TRINH QUAN LY SINH VIEN    **\n");
 		printf("**                Menu                  **\n");
-        printf("**      1. Add New Student              **\n");
-        printf("**      2. Delete Student               **\n");
-        printf("**      3. Search any Student           **\n");
-        printf("**      4. Edit Student                 **\n");
-        printf("**      5. Show all students            **\n");
-        printf("**      0. Finish                       **\n");
-        printf("******************************************\n");
-        printf("**          You want:                   **\n");
+                printf("**      1. Add New Student              **\n");
+                printf("**      2. Delete Student               **\n");
+                printf("**      3. Search any Student           **\n");
+                printf("**      4. Edit Student                 **\n");
+                printf("**      5. Show all students            **\n");
+                printf("**      0. Finish                       **\n");
+                printf("******************************************\n");
+                printf("**          You want:                   **\n");
         
 		scanf("%d", &x);
 		fflush(stdin);
@@ -69,51 +69,51 @@ int main(int argc, char **argv)
 			{
 				addingNewStudent("student.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;
 			}
 			case 2:
 			{
 				deletingStudent("student.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;				
 			}
 			case 3:
 			{
 				searchingStudent("student.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;
 			}
 			case 4:
 			{
 				editingStudent("student.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;
 			}
 			case 5:
 			{
 				look_all_Students("student.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;
 			}
 			case 0:
 			{
-                getch();
+                                getch();
 				return 0;
 			}
 			
 			default:{
 			     printf("\nNot any function");
-                 printf("\nEnter any buttons!!");
-                 getch();
-                 break;
+                             printf("\nEnter any buttons!!");
+                             getch();
+                             break;
 			}
 		}
-	}
+	    }
 	}
 
 	return 0;
@@ -210,14 +210,14 @@ void searchingStudent(const char *filename)
 	{
 		printf("-----------------------------------------------------"
 	"----------------------------------------------------------------\n");
-	while(!feof(fs)){
+	        while(!feof(fs)){
      
-	     fscanf(fs, "%s %s %s %s %s %[^\n]", Students[total].ID, Students[total].FamilyName, Students[total].Name, Students[total].FatherName, Students[total].Faculty, Students[total].Specialist);
-	     if(total == n){
-		     printf("%10s %10s %10s %15s %10s %15s\n", trim(Students[n].ID), trim(Students[n].FamilyName), trim(Students[n].Name), trim(Students[n].FatherName), trim(Students[n].Faculty), trim(Students[n].Specialist));
-	     }
-	     total++;
-	}
+	            fscanf(fs, "%s %s %s %s %s %[^\n]", Students[total].ID, Students[total].FamilyName, Students[total].Name, Students[total].FatherName, Students[total].Faculty, Students[total].Specialist);
+	            if(total == n){
+		           printf("%10s %10s %10s %15s %10s %15s\n", trim(Students[n].ID), trim(Students[n].FamilyName), trim(Students[n].Name), trim(Students[n].FatherName), trim(Students[n].Faculty), trim(Students[n].Specialist));
+	            }
+	            total++;
+	        }
 		printf("-----------------------------------------------------"
 	"----------------------------------------------------------------\n");
 		fclose(fs);
