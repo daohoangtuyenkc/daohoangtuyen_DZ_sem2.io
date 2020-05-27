@@ -45,16 +45,16 @@ int main(int argc, char **argv)
 		while(true){
 		system("cls");
 		printf("******************************************\n");
-        printf("**    CHUONG TRINH QUAN LY SINH VIEN    **\n");
+                printf("**    CHUONG TRINH QUAN LY SINH VIEN    **\n");
 		printf("**                Menu                  **\n");
-        printf("**      1. Add New Book              **\n");
-        printf("**      2. Delete Book               **\n");
-        printf("**      3. Search any Book           **\n");
-        printf("**      4. Edit book                 **\n");
-        printf("**      5. Show all Books            **\n");
-        printf("**      0. Finish                       **\n");
-        printf("******************************************\n");
-        printf("**          You want:                   **\n");
+                printf("**      1. Add New Book              **\n");
+                printf("**      2. Delete Book               **\n");
+                printf("**      3. Search any Book           **\n");
+                printf("**      4. Edit book                 **\n");
+                printf("**      5. Show all Books            **\n");
+                printf("**      0. Finish                       **\n");
+                printf("******************************************\n");
+                printf("**          You want:                   **\n");
 
 		scanf("%d", &x);
 		fflush(stdin);
@@ -64,40 +64,40 @@ int main(int argc, char **argv)
 			{
 				addingNewBook("book.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;
 			}
 			case 2:
 			{
 				deletingBook("book.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;				
 			}
 			case 3:
 			{
 				searchingBook("book.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;
 			}
 			case 4:
 			{
 				editingBook("book.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;
 			}
 			case 5:
 			{
 				look_all("book.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;
 			}
 			case 0:
 			{
-                getch();
+                                getch();
 				return 0;
 			}
 			default:
