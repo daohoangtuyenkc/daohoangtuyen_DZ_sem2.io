@@ -85,13 +85,13 @@ void gettime(const char s[], char ID[]);
 
                                   // Function main
 int main(){
-    int n;
+        int n;
 	FILE *fs = fopen("User.csv", "a+");
 	//read user
 	int k = readUser("User.csv");
 	// Confirm You wanna just Login  OR Add new user
 	int i = Login_or_register();
-    if(i==1){
+        if(i==1){
 
 		n = check_users("User.csv");
 	}
@@ -102,7 +102,7 @@ int main(){
 	}
 	// Verify account
 
-    if(Users[n].Username == "admin" || (Users[n].ADbook == 1 && Users[n].ADstudent == 1)){
+        if(Users[n].Username == "admin" || (Users[n].ADbook == 1 && Users[n].ADstudent == 1)){
 
 		Access_admin(Users[n].Username);
 
@@ -117,12 +117,12 @@ int main(){
 		Access_student(Users[n].Username);
 
 	}
-    fclose(fs);
+        fclose(fs);
 	return 0;
 }
                                              // Get time - diary work with menu books and students
 void gettime(const char s[], char *ID){
-	FILE *fx;
+    FILE *fx;
    // Function time
     time_t     now;
     struct tm  ts;
@@ -161,18 +161,18 @@ void Access_student(char *ID){
 	{
 		int x;
 		while(true){
-        system("cls");
+                system("cls");
 		printf("******************************************\n");
-        printf("**    CHUONG TRINH QUAN LY SINH VIEN    **\n");
+                printf("**    CHUONG TRINH QUAN LY SINH VIEN    **\n");
 		printf("**                Menu                  **\n");
-        printf("**      1. Add New Student              **\n");
-        printf("**      2. Delete Student               **\n");
-        printf("**      3. Search any Student           **\n");
-        printf("**      4. Edit Student                 **\n");
-        printf("**      5. Show all students            **\n");
-        printf("**      0. Finish. Return to function login **\n");
-        printf("******************************************\n");
-        printf("**          You want:                   **\n");
+                printf("**      1. Add New Student              **\n");
+                printf("**      2. Delete Student               **\n");
+                printf("**      3. Search any Student           **\n");
+                printf("**      4. Edit Student                 **\n");
+                printf("**      5. Show all students            **\n");
+                printf("**      0. Finish. Return to function login **\n");
+                printf("******************************************\n");
+                printf("**          You want:                   **\n");
         
 		scanf("%d", &x);
 		fflush(stdin);
@@ -183,7 +183,7 @@ void Access_student(char *ID){
 				gettime("addingNewStudent", ID);
 				addingNewStudent("student.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;
 			}
 			case 2:
@@ -191,7 +191,7 @@ void Access_student(char *ID){
 				gettime("deletingStudent", ID);
 				deletingStudent("student.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;				
 			}
 			case 3:
@@ -199,7 +199,7 @@ void Access_student(char *ID){
 				gettime("searchingStudent", ID);
 				searchingStudent("student.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;
 			}
 			case 4:
@@ -207,7 +207,7 @@ void Access_student(char *ID){
 				gettime("editingStudent", ID);
 				editingStudent("student.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                etch();
 				break;
 			}
 			case 5:
@@ -215,22 +215,22 @@ void Access_student(char *ID){
 				gettime("look_all_Students", ID);
 				look_all_Students("student.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;
 			}
 
 			case 0:
 			{
 				printf("\nFinished. \n");
-                check_users("User.csv");
+                                check_users("User.csv");
 				return ;
 			}
 			
 			default:{
 			     printf("\nNot any function");
-                 printf("\nEnter any buttons!!");
-                 getch();
-                 break;
+                             printf("\nEnter any buttons!!");
+                             getch();
+                             break;
 			}
 		}
 	   }
@@ -319,13 +319,13 @@ void searchingStudent(const char *filename)
 	"----------------------------------------------------------------\n");
 		while(!feof(fs)){
      
-	         fscanf(fs, "%s %s %s %s %s %[^\n]", Students[total].ID, Students[total].FamilyName, Students[total].Name, Students[total].FatherName, Students[total].Faculty, Students[total].Specialist);
-	         if(total == n){
-		         printf("%10s %10s %10s %15s %10s %15s\n", trim(Students[n].ID), trim(Students[n].FamilyName), trim(Students[n].Name), trim(Students[n].FatherName), trim(Students[n].Faculty), trim(Students[n].Specialist));
-	         }
+	              fscanf(fs, "%s %s %s %s %s %[^\n]", Students[total].ID, Students[total].FamilyName, Students[total].Name, Students[total].FatherName, Students[total].Faculty, Students[total].Specialist);
+	              if(total == n){
+		            printf("%10s %10s %10s %15s %10s %15s\n", trim(Students[n].ID), trim(Students[n].FamilyName), trim(Students[n].Name), trim(Students[n].FatherName), trim(Students[n].Faculty), trim(Students[n].Specialist));
+	              }
 
-	         total++;
-	    }
+	              total++;
+	        }
 		printf("-----------------------------------------------------"
 	"----------------------------------------------------------------\n");
 		fclose(fs);
@@ -351,9 +351,10 @@ void deletingStudent(const char *filename)
 		int i;
 		for (i = 0; i < n; i++)
 		{
-			if (i != k)
-				//printf("%s, %s, %s, %d, %d\n", Books[i].ISBN, Books[i].Author, Books[i].Title, Books[i].All, Books[i].Free);
+			if (i != k){
+				
 				fprintf(fs, "\n%10s, %10s, %10s, %15s, %10s, %15s", trim(Students[i].ID), trim(Students[i].FamilyName), trim(Students[i].Name), trim(Students[i].FatherName), trim(Students[i].Faculty), trim(Students[i].Specialist));
+			}	
 		}
 		fclose(fs);
 		printf("\nRemoved from the library.");
@@ -392,11 +393,12 @@ void editingStudent(const char *filename)
 		int i;
 		for (i = 0; i < n; i++)
 		{
-			if (i != k)
-				//printf("%s, %s, %s, %d, %d\n", Books[i].ISBN, Books[i].Author, Books[i].Title, Books[i].All, Books[i].Free);
-				fprintf(fs, "\n%10s, %10s, %10s, %15s, %10s, %15s", trim(Students[i].ID), trim(Students[i].FamilyName), trim(Students[i].Name), trim(Students[i].FatherName), trim(Students[i].Faculty), trim(Students[i].Specialist));
+			if (i != k){
+				
+			     fprintf(fs, "\n%10s, %10s, %10s, %15s, %10s, %15s", trim(Students[i].ID), trim(Students[i].FamilyName), trim(Students[i].Name), trim(Students[i].FatherName), trim(Students[i].Faculty), trim(Students[i].Specialist));
+			}	
 			else
-			    fprintf(fs, "\n%10s, %10s, %10s, %15s, %10s, %15s", trim(edititem.ID), trim(edititem.FamilyName), trim(edititem.Name), trim(edititem.FatherName), trim(edititem.Faculty), trim(edititem.Specialist));	
+			     fprintf(fs, "\n%10s, %10s, %10s, %15s, %10s, %15s", trim(edititem.ID), trim(edititem.FamilyName), trim(edititem.Name), trim(edititem.FatherName), trim(edititem.Faculty), trim(edititem.Specialist));	
 		}
 		fclose(fs);
 	}
@@ -423,7 +425,7 @@ void look_all_Students(const char *filename){
 }
                                                  // END Part Students
 
-												 // ACCESS MENU BOOKS 
+                                                 // ACCESS MENU BOOKS 
 void Access_book(char *ID){
 
 	printf("\n\t Access menu book \n");
@@ -434,20 +436,20 @@ void Access_book(char *ID){
 	}
 	else
 	{
-	    int x;
+	        int x;
 		while(true){
 		system("cls");
 		printf("******************************************\n");
-        printf("**    CHUONG TRINH QUAN LY SINH VIEN    **\n");
+                printf("**    CHUONG TRINH QUAN LY SINH VIEN    **\n");
 		printf("**                Menu books            **\n");
-        printf("**      1. Add New Book                 **\n");
-        printf("**      2. Delete Book                  **\n");
-        printf("**      3. Search any Book              **\n");
-        printf("**      4. Edit book                    **\n");
-        printf("**      5. Show all Books               **\n");
-        printf("**      0. Finish. Return to login       **\n");
-        printf("******************************************\n");
-        printf("**          You want:                   **\n");
+                printf("**      1. Add New Book                 **\n");
+                printf("**      2. Delete Book                  **\n");
+                printf("**      3. Search any Book              **\n");
+                printf("**      4. Edit book                    **\n");
+                printf("**      5. Show all Books               **\n");
+                printf("**      0. Finish. Return to login       **\n");
+                printf("******************************************\n");
+                printf("**          You want:                   **\n");
 
 		scanf("%d", &x);
 		fflush(stdin);
@@ -458,7 +460,7 @@ void Access_book(char *ID){
 				gettime("addingNewBook", ID);
 				addingNewBook("book.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;
 			}
 			case 2:
@@ -466,7 +468,7 @@ void Access_book(char *ID){
 				gettime("deletingBook", ID);
 				deletingBook("book.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;				
 			}
 			case 3:
@@ -474,7 +476,7 @@ void Access_book(char *ID){
 				gettime("searchingBook", ID);
 				searchingBook("book.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;
 			}
 			case 4:
@@ -482,7 +484,7 @@ void Access_book(char *ID){
 				gettime("editingBook", ID);
 				editingBook("book.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;
 			}
 			case 5:
@@ -490,24 +492,24 @@ void Access_book(char *ID){
 				gettime("look_all-books", ID);
 				look_all("book.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;
 			}
 			case 0:
 			{
 				printf("\nFinished\n");
 				check_users("User.csv");
-                return ;
+                                return ;
 			}
 			default:
 			{
-			     printf("\nNot any function");
-                 printf("\nEnter any buttons!!");
-                 getch();
-                 break;
+			        printf("\nNot any function");
+                                printf("\nEnter any buttons!!");
+                                getch();
+                                break;
 			}
 		}
-	  }
+	      }
 	}
 }
                                                     //read books
@@ -597,12 +599,12 @@ void searchingBook(const char *filename)
 
 		while(!feof(fs)){
      
-	     fscanf(fs, "\n%[^,], %[^,], %[^,], %d, %d", Books[total].ISBN, Books[total].Author, Books[total].Title, &Books[total].All, &Books[total].Free);
-	     if(total == n){
-		     printf("%10s, %10s, %10s, %d, %d\n", trim(Books[n].ISBN), trim(Books[n].Author), trim(Books[n].Title), Books[n].All, Books[n].Free);
-	     }
-	     total++;
-	}
+	              fscanf(fs, "\n%[^,], %[^,], %[^,], %d, %d", Books[total].ISBN, Books[total].Author, Books[total].Title, &Books[total].All, &Books[total].Free);
+	              if(total == n){
+		             printf("%10s, %10s, %10s, %d, %d\n", trim(Books[n].ISBN), trim(Books[n].Author), trim(Books[n].Title), Books[n].All, Books[n].Free);
+	              }
+	              total++;
+	        }
 		printf("-----------------------------------------------------"
 	"----------------------------------------------------------------\n");
 		fclose(fs);
@@ -629,9 +631,10 @@ void deletingBook(const char *filename)
 		int i;
 		for (i = 0; i < n; i++)
 		{
-			if (i != k)
-				//printf("%s, %s, %s, %d, %d\n", Books[i].ISBN, Books[i].Author, Books[i].Title, Books[i].All, Books[i].Free);
+			if (i != k){
+				
 				fprintf(fs, "\n%10s, %10s, %10s, %d, %d", trim(Books[i].ISBN), trim(Books[i].Author), trim(Books[i].Title), Books[i].All, Books[i].Free);
+			}
 		}
 		fclose(fs);
 		printf("\nRemoved from the library.");
@@ -667,10 +670,10 @@ void editingBook(const char *filename)
 		int i;
 		for (i = 0; i < n; i++)
 		{
-			if (i != k)
+			if (i != k){
 
 				fprintf(fs, "\n%10s, %10s, %10s, %d, %d", Books[i].ISBN, Books[i].Author, Books[i].Title, Books[i].All, Books[i].Free);
-
+	                } 
 			else{
 
 				fprintf(fs, "\n%10s, %10s, %10s, %d, %d", trim(edititem.ISBN), trim(edititem.Author), trim(edititem.Title), edititem.All, edititem.Free);
@@ -704,7 +707,7 @@ void look_all(const char *filename){
 
                                              // Access with admin
 void Access_admin(char *ID){
-    int x;
+        int x;
 	system("cls");
 	printf("******************************************\n");
 	printf("**    You are admin.                    **\n");
@@ -714,7 +717,7 @@ void Access_admin(char *ID){
 	printf("**      0. Return login.                **\n");
 	printf("**      You choice:                     **\n");
 	scanf("%d", &x);
-    fflush(stdin);
+        fflush(stdin);
 
 	switch(x)
 		{
@@ -723,7 +726,7 @@ void Access_admin(char *ID){
 				system("cls");
 				Access_book( ID );
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;
 			}
 			case 2:
@@ -731,7 +734,7 @@ void Access_admin(char *ID){
 				system("cls");
 				Access_student( ID );
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;				
 			}
 			case 0:
@@ -741,10 +744,10 @@ void Access_admin(char *ID){
 			}
 			
 			default:{
-			     printf("\nNot any function");
-                 printf("\nEnter any buttons!!");
-                 getch();
-                 break;
+			        printf("\nNot any function");
+                                printf("\nEnter any buttons!!");
+                                getch();
+                                break;
 			}
 		}
 }
@@ -761,13 +764,14 @@ int Login_or_register(){
 	printf("**      You choice:                     **\n");
 	fflush(stdin);
 	scanf("%d", &x);
-	if(x == 1 || x == 2)
-         return x;
-
+	if(x == 1 || x == 2){
+            return x;
+	}
+	
 }														  
 int check_users(const char *filename){
 	bool login = false;
-    char a[__MAX_SIZE], b[__MAX_SIZE];
+        char a[__MAX_SIZE], b[__MAX_SIZE];
 	FILE *f = fopen(filename , "a+");
 	rewind(f);
 	int k = readUser(filename);
@@ -792,7 +796,7 @@ int check_users(const char *filename){
 		if(login == false){           
 		     printf("\nCan't login successfully. Login or password isn't right. Please login again.\n");
 		     getch();
-	    }
+	        }
 
 	}
 	fclose(f);
@@ -810,12 +814,12 @@ void add_user(){
 		int x;
 		system("cls");
 		printf("******************************************\n");
-        printf("**    CHUONG TRINH QUAN LY User         **\n");
+                printf("**    CHUONG TRINH QUAN LY User         **\n");
 		printf("**                Menu                  **\n");
-        printf("**      1. Add New User                 **\n");
-        printf("**      0. Finish                       **\n");
-        printf("******************************************\n");
-        printf("**          You want:                   **\n");
+                printf("**      1. Add New User                 **\n");
+                printf("**      0. Finish                       **\n");
+                printf("******************************************\n");
+                printf("**          You want:                   **\n");
 
 		scanf("%d", &x);
 		fflush(stdin);
@@ -825,7 +829,7 @@ void add_user(){
 			{
 				addingNewUser("User.csv");
 				printf("\nEnter any buttons!");
-                getch();
+                                getch();
 				break;
 			}
 			
@@ -836,10 +840,10 @@ void add_user(){
 			}
 			default:
 			{
-			     printf("\nNot any function");
-                 printf("\nEnter any buttons!!");
-                 getch();
-                 break;
+			        printf("\nNot any function");
+                                printf("\nEnter any buttons!!");
+                                getch();
+                                break;
 			}
 		}
 	         
