@@ -8,15 +8,14 @@
 
 
 
-typedef struct students
-    {
+typedef struct students{
         char ID[15];
         char name[10];
         char surname[15];
         char patronymic[15];
         char faculty[10];
         char special[20];
-    } typestudents;
+} typestudents;
 
 typedef struct sach{
 	char isbn[20];
@@ -40,29 +39,32 @@ void look_book();  // view information of book, which student borrowed by ID of 
 void want_check(); // function borrow or return books
 void gettime(const char s[], char *ID); // Get time
    
-        // To run program, You need create 2 files "books.csv" and "student.csv".
+                // To run program, You need create 2 files "books.csv" and "student.csv".
 		// In 2 file had availables a little information about books and student - like Data structure above
-
+                // To have information about books and students, can borrow or return book
+                // Then, You run code, choose borrow books, to from here, you can run other fuction.
+              
 int main(){
-	int select;
-	do{
+     int select;
+     do{
+		
   	system("cls");
-    printf("\t\t*____LIBRARY____*\n\n");
-    printf("\t1: View book by ID of student\n");
+        printf("\t\t*____LIBRARY____*\n\n");
+        printf("\t1: View book by ID of student\n");
 	printf("\t2: View of student by isbn of book\n");
-    printf("\t3: Borrow, return books\n");
-    printf("\t4: Complete the work\n");
-    printf("\nChoose: ");
-    scanf("%d", &select);
+        printf("\t3: Borrow, return books\n");
+        printf("\t4: Complete the work\n");
+        printf("\nChoose: ");
+        scanf("%d", &select);
 
-    switch(select)
+        switch(select)
         {
             case 1:
                 {
                 	system("cls");
-					look_book();
-					system("pause");
-                    break;
+			look_book();
+			system("pause");
+                        break;
                 }
 
             case 2:
@@ -70,7 +72,7 @@ int main(){
                 	system("cls");
                 	look_student();
                 	system("pause");
-                    break;
+                        break;
                 }
 
             case 3:
@@ -78,14 +80,14 @@ int main(){
                 	system("cls");
                 	want_check();
                 	system("pause");
-                    break;
+                        break;
                 }
 
             case 4:
                 {
                 	system("cls");
                 	goto END;
-                    break;
+                        break;
                 }
             default: printf("\nErrors occur when entering orders?");
         }
@@ -144,8 +146,8 @@ void look_book(){
 }
 // FUndction Get time, you work
 void gettime(const char s[], char *ID){
-	FILE *fx;
-   // function time
+    FILE *fx;
+    // function time
     time_t     now;
     struct tm  ts;
     char       buf[80];
@@ -232,31 +234,32 @@ void want_check(){
 					}
 			}
 			fclose(fl); 
-
-			if( c != 1){ // if ISBN not exist at library when c != 1
-                 printf("\n There are no books available to issue. when it will be nearest book delivered\n");
+                        // if ISBN not exist at library when c != 1
+			if( c != 1){ 
+                              printf("\n There are no books available to issue. when it will be nearest book delivered\n");
 			}
-			else{ // if ISBN exist at library when c = 1
-                while(!feof(f)){
+			
+			// if ISBN exist at library when c = 1
+			else{          
+                               while(!feof(f)){
 				     fscanf(f, "%s %s %s\n", tt[i].isbn , tt[i].ID , tt[i].data);
 				     if(strcmp(trim(tt[i].isbn), isbn)==0  && strcmp(trim(tt[i].ID), record)==0){
 					 printf("\nYou still borrow books. Repayment: %s\n", tt[i].data); 
 					 k =1;
-				
-				    }
-			    }
-			    fclose(f);
-			    // If you don't borrow books, going on enter data return book, to borrow
-			    if(k != 1){
-				    printf("\nData return book: ");
-			        fflush(stdin); 
-			        gets(tra);
-				    f = fopen("student_book.csv", "a+");
-			        fprintf(f, "\n%s, %s, %s ", isbn, record , tra);
-			        fclose(f);
-			        printf("\nsuccessful borrow books\n");
-			        gettime("borrow books", record);
-			    }
+				     }
+			       }
+			       fclose(f);
+			       // If you don't borrow books, going on enter data return book, to borrow
+			       if(k != 1){
+				     printf("\nData return book: ");
+			             fflush(stdin); 
+			             gets(tra);
+				     f = fopen("student_book.csv", "a+");
+			             fprintf(f, "\n%s, %s, %s ", isbn, record , tra);
+			             fclose(f);
+			             printf("\nsuccessful borrow books\n");
+			             gettime("borrow books", record);
+			        }
 			}
 			
 			break;
@@ -279,7 +282,7 @@ void want_check(){
 				     fprintf(f, "\n%s, %s, %s ", tt[i].isbn, tt[i].ID, tt[i].data);
 				 }	 
 			}
-            printf("\nsuccessfully return books\n");
+                        printf("\nsuccessfully return books\n");
 			gettime("Return books", record);
 			fclose(f);
 			break;
