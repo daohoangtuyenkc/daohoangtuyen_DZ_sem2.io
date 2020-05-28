@@ -2,7 +2,7 @@
 #include <time.h>
 #include <conio.h>
 void gettime(const char s[], char *ID){
-	  FILE *fx;
+    FILE *fx;
     // Function time
     time_t     now;
     struct tm  ts;
