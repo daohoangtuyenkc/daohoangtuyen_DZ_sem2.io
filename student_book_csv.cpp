@@ -8,21 +8,22 @@
 
 
 
-typedef struct students{
+typedef struct students
+    {
         char ID[15];
         char name[10];
         char surname[15];
         char patronymic[15];
         char faculty[10];
         char special[20];
-} typestudents;
+    } typestudents;
 
 typedef struct sach{
 	char isbn[20];
 	char author[50];
 	char booksname[50];
 	int number;
-	int access;
+	int free;
 } books;
 
 typedef struct sinhvien{
@@ -38,15 +39,16 @@ void look_student(); //view information of students, who borrowed book by ISBN o
 void look_book();  // view information of book, which student borrowed by ID of student
 void want_check(); // function borrow or return books
 void gettime(const char s[], char *ID); // Get time
+void After_return_or_borrow(char a[], int k); // Change number free of book arter return or borrow books
    
                 // To run program, You need create 2 files "book.csv" and "student.csv".
 		// In 2 file had availables a little information about books and student - like Data structure above
-                // To have information about books and students, can borrow or return book
-                // Then, You run code, choose borrow books, to from here, you can run other function.
+                // To have information about books and students(in file "student_book.csv"), have to borrow books
+                // Then from here, you can run other function.
               
 int main(){
      int select;
-     do{
+     do{ 
 		
   	system("cls");
         printf("\t\t*____LIBRARY____*\n\n");
@@ -62,7 +64,7 @@ int main(){
             case 1:
                 {
                 	system("cls");
-			look_book();
+	                look_book();
 			system("pause");
                         break;
                 }
@@ -110,7 +112,6 @@ char *trim(char *s)
 void look_book(){ 
 	fflush(stdin);
 	FILE *f = fopen("student_book.csv", "rb");
-	
 	typebook bai3;
 	char record[MAX];
 	char *k =NULL;
@@ -118,23 +119,21 @@ void look_book(){
 	fflush(stdin);
 	scanf("%s", record);
 	printf("\nInformation of books:");
-	printf("\n%15s %10s %20s %18s %8s" , "ISBN", "Author", "BookName", "Access", "Number");
+	printf("\n%15s %10s %20s %18s %8s" , "ISBN", "Author", "BookName", "Number", "free");
 	while(!feof(f)){
 		fscanf(f, "%s %s %s\n", bai3.isbn, bai3.ID, bai3.data);
-		if(strcmp(trim(bai3.ID), record)==0){
+		if(strcmp(trim(bai3.ID), trim(record))==0){
 			k = trim(bai3.ID);
 			FILE *fl= fopen("book.csv","rb");
-			books sv;
+	                books sv;
 			while(!feof(fl)){
-					fscanf(fl, "\n%[^,], %[^,], %[^,], %d, %d" , sv.isbn, sv.author, sv.booksname, &sv.number, &sv.access);
+					fscanf(fl, "\n%[^,], %[^,], %[^,], %d, %d" , sv.isbn, sv.author, sv.booksname, &sv.number, &sv.free);
 					if(strcmp(trim(sv.isbn), trim(bai3.isbn))==0){
-						
-						printf("\n%15s %20s %20s %5d %5d" , sv.isbn, sv.author, sv.booksname, sv.number, sv.access);
-						printf("\n");
+						printf("\n%15s, %20s, %20s, %5d, %5d\n" , trim(sv.isbn), trim(sv.author), trim(sv.booksname), sv.number, sv.free);
+	
 					}
 			}
 			fclose(fl);
-
 		}
 	}
 	if(k!= NULL){
@@ -147,14 +146,14 @@ void look_book(){
 // FUndction Get time, you work
 void gettime(const char s[], char *ID){
     FILE *fx;
-    // function time
+   // function time
     time_t     now;
     struct tm  ts;
     char       buf[80];
     time(&now);
     ts = *localtime(&now);
     strftime(buf, sizeof(buf), "%a %Y-%m-%d %H:%M:%S", &ts);
-    printf("%s\n", buf);
+    printf("\n%s\n", buf);
 
     fflush(stdin);
     fx=fopen("library.log","a+");
@@ -167,6 +166,7 @@ void gettime(const char s[], char *ID){
 }
 
 // View information students by ISBN of book, which you borrow
+
 void look_student(){ 
 	fflush(stdin);
 	FILE *f = fopen("student_book.csv", "rb");
@@ -197,9 +197,9 @@ void look_student(){
 	}
 	if(k!= NULL){
 		 gettime("View students by ISBN of books", k);
-	}else 
-	     printf("\nErrors occur when importing ISBN of books\n");
-
+	}else {
+	         printf("\nErrors occur when importing ISBN of books\n");
+	}
 	fclose(f);
 }
 
@@ -226,7 +226,7 @@ void want_check(){
 			FILE *fl= fopen("book.csv","rb"); // check ISBN of book exists in library or not?
 			books sv;
 			while(!feof(fl)){
-					fscanf(fl, "\n%[^,], %[^,], %[^,], %d, %d" , sv.isbn, sv.author, sv.booksname, &sv.access, &sv.number);
+					fscanf(fl, "\n%[^,], %[^,], %[^,], %d, %d" , sv.isbn, sv.author, sv.booksname, &sv.number, &sv.free);
 					if(strcmp(trim(sv.isbn), isbn) == 0){
 						c = 1;
 						break;
@@ -234,38 +234,38 @@ void want_check(){
 					}
 			}
 			fclose(fl); 
-                        // if ISBN not exist at library when c != 1
-			if( c != 1){ 
+
+			if( c != 1){ // if ISBN of book not exist at library when c != 1
                               printf("\n There are no books available to issue. when it will be nearest book delivered\n");
 			}
-			
-			// if ISBN exist at library when c = 1
-			else{          
-                               while(!feof(f)){
-				     fscanf(f, "%s %s %s\n", tt[i].isbn , tt[i].ID , tt[i].data);
-				     if(strcmp(trim(tt[i].isbn), isbn)==0  && strcmp(trim(tt[i].ID), record)==0){
-					 printf("\nYou still borrow books. Repayment: %s\n", tt[i].data); 
-					 k =1;
-				     }
-			       }
-			       fclose(f);
-			       // If you don't borrow books, going on enter data return book, to borrow
-			       if(k != 1){
-				     printf("\nData return book: ");
-			             fflush(stdin); 
-			             gets(tra);
-				     f = fopen("student_book.csv", "a+");
-			             fprintf(f, "\n%s, %s, %s ", isbn, record , tra);
-			             fclose(f);
-			             printf("\nsuccessful borrow books\n");
-			             gettime("borrow books", record);
-			        }
+			else{ // if ISBN exist at library when c = 1
+                                    while(!feof(f)){
+				         fscanf(f, "%s %s %s\n", tt[i].isbn , tt[i].ID , tt[i].data);
+				         if(strcmp(trim(tt[i].isbn), isbn)==0  && strcmp(trim(tt[i].ID), record)==0){
+					       printf("\nYou still borrow books. Repayment: %s\n", tt[i].data); 
+					       k =1;
+				         }
+			             }
+			           fclose(f);
+			           // If you don't borrow books, going on enter data return book, to borrow
+			           if(k != 1){
+				        printf("\nData return book: ");
+			                fflush(stdin); 
+			                gets(tra);
+				        f = fopen("student_book.csv", "a+");
+			                fprintf(f, "\n%s, %s, %s ", trim(isbn), trim(record), trim(tra));
+			                fclose(f);
+			                printf("\nsuccessful borrow books\n");
+			                gettime("borrow books", record);
+					After_return_or_borrow(trim(isbn), k);
+			            }
 			}
 			
 			break;
 		}
 		// return books
 		case 2: {
+			books sv[MAX];
 			fflush(stdin);
 			printf("\nEnter ISBN number: "); gets(isbn);
 			printf("\nEnter the ID: "); gets(record);
@@ -278,14 +278,63 @@ void want_check(){
 			n = i;
 			f = fopen("student_book.csv", "w");
 			for(i=0; i< n; i++){
-				if(strcmp(trim(tt[i].isbn), isbn)!=0  || strcmp(trim(tt[i].ID), record)!=0){
-				     fprintf(f, "\n%s, %s, %s ", tt[i].isbn, tt[i].ID, tt[i].data);
-				 }	 
+				 if(strcmp(trim(tt[i].isbn), isbn)!=0  || strcmp(trim(tt[i].ID), record)!=0){
+                    
+				     fprintf(f, "\n%s, %s, %s ", trim(tt[i].isbn), trim(tt[i].ID), trim(tt[i].data));
+				 }
+				 else k = 1; 	 
 			}
-                        printf("\nsuccessfully return books\n");
-			gettime("Return books", record);
 			fclose(f);
+			if( k == 1){
+				 printf("\nsuccessfully return books\n");
+			         gettime("Return books", record);
+				 After_return_or_borrow(trim(isbn), k);
+			}
+                        else{
+                                 printf("\nBook isn't in borrowed list. Return books unsuccessfully.\n");
+			}
+			
 			break;
 		}
 	}	
+}
+void After_return_or_borrow(char a[], int k){
+	FILE *fr = fopen("book.csv", "r");
+	books sv[MAX];
+	int i = 0, n = 0, temp;
+	while(!feof(fr)){
+		 fscanf(fr, "\n%[^,], %[^,], %[^,], %d, %d" , sv[i].isbn, sv[i].author, sv[i].booksname, &sv[i].number, &sv[i].free);
+		 if(strcmp(a, trim(sv[i].isbn)) == 0){
+			 temp = i;
+		 }
+		 i++;
+	 }
+	 fclose(fr);
+	 fr = fopen("book.csv", "w");
+	 // return successfully books, Then Number free of book + 1. Convention k = 1 
+	 if( k == 1){
+		for(n=0; n< i; n++){
+                        if( n == temp){
+				sv[n].free = sv[n].free + 1; 
+                                fprintf(fr, "\n%10s, %10s, %10s, %d, %d", trim(sv[n].isbn), trim(sv[n].author), trim(sv[n].booksname), sv[n].number, sv[n].free);
+			}
+			else{
+				 fprintf(fr, "\n%10s, %10s, %10s, %d, %d", trim(sv[n].isbn), trim(sv[n].author), trim(sv[n].booksname), sv[n].number, sv[n].free);
+			}
+		}			
+  	 }
+	   // if borrow successfully book, Number free of books - 1; Convention k != 1.
+	 else{
+		for(n=0; n< i; n++){
+                        if( n == temp){
+				 sv[n].free = sv[n].free - 1; 
+                                 fprintf(fr, "\n%10s, %10s, %10s, %d, %d", trim(sv[n].isbn), trim(sv[n].author), trim(sv[n].booksname), sv[n].number, sv[n].free);
+			}
+			else{
+				 fprintf(fr, "\n%10s, %10s, %10s, %d, %d", trim(sv[n].isbn), trim(sv[n].author), trim(sv[n].booksname), sv[n].number, sv[n].free);
+			}
+		}	
+	 }
+	 fclose(fr);  
+
 }
