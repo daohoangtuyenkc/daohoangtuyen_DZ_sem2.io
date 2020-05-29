@@ -39,10 +39,10 @@ void look_book();  // view information of book, which student borrowed by ID of 
 void want_check(); // function borrow or return books
 void gettime(const char s[], char *ID); // Get time
    
-                // To run program, You need create 2 files "books.csv" and "student.csv".
+                // To run program, You need create 2 files "book.csv" and "student.csv".
 		// In 2 file had availables a little information about books and student - like Data structure above
                 // To have information about books and students, can borrow or return book
-                // Then, You run code, choose borrow books, to from here, you can run other fuction.
+                // Then, You run code, choose borrow books, to from here, you can run other function.
               
 int main(){
      int select;
@@ -123,13 +123,13 @@ void look_book(){
 		fscanf(f, "%s %s %s\n", bai3.isbn, bai3.ID, bai3.data);
 		if(strcmp(trim(bai3.ID), record)==0){
 			k = trim(bai3.ID);
-			FILE *fl= fopen("books.csv","rb");
+			FILE *fl= fopen("book.csv","rb");
 			books sv;
 			while(!feof(fl)){
-					fscanf(fl, "\n%[^,], %[^,], %[^,], %d, %d" , sv.isbn, sv.author, sv.booksname, &sv.access, &sv.number);
+					fscanf(fl, "\n%[^,], %[^,], %[^,], %d, %d" , sv.isbn, sv.author, sv.booksname, &sv.number, &sv.access);
 					if(strcmp(trim(sv.isbn), trim(bai3.isbn))==0){
 						
-						printf("\n%15s %20s %20s %5d %5d" , sv.isbn, sv.author, sv.booksname, sv.access, sv.number);
+						printf("\n%15s %20s %20s %5d %5d" , sv.isbn, sv.author, sv.booksname, sv.number, sv.access);
 						printf("\n");
 					}
 			}
@@ -181,7 +181,7 @@ void look_student(){
 	while(!feof(f)){
 		fscanf(f, "%s %s %s\n", bai3.isbn, bai3.ID, bai3.data);
 		if(strcmp(trim(bai3.isbn), record)==0){
-			k =trim(bai3.isbn);
+			k =trim(bai3.ID);
 			FILE *fl= fopen("student.csv","rb");
 			typestudents sv;
 			while(!feof(fl)){
@@ -196,7 +196,7 @@ void look_student(){
 		}
 	}
 	if(k!= NULL){
-		 gettime("View book by ID of student", k);
+		 gettime("View students by ISBN of books", k);
 	}else 
 	     printf("\nErrors occur when importing ISBN of books\n");
 
@@ -223,7 +223,7 @@ void want_check(){
 			fflush(stdin);
 			printf("\nEnter ISBN number: "); gets(isbn);
 			printf("\nEnter the ID: "); gets(record);
-			FILE *fl= fopen("books.csv","rb"); // check ISBN of book exists in library or not?
+			FILE *fl= fopen("book.csv","rb"); // check ISBN of book exists in library or not?
 			books sv;
 			while(!feof(fl)){
 					fscanf(fl, "\n%[^,], %[^,], %[^,], %d, %d" , sv.isbn, sv.author, sv.booksname, &sv.access, &sv.number);
